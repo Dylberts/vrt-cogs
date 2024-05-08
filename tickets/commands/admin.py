@@ -35,7 +35,7 @@ class AdminCommands(MixinMeta):
         em = Embed(
             title=_("Ticket Setup Guide"),
             description=desc,
-            color=ctx.author.color,
+            color=0x6edfba,
         )
         step1 = _("Set the category ID that new tickets will be created under if using channel tickets.\n")
         step1 += f"`{ctx.clean_prefix}tickets category " + _("<panel_name> <category_id>`")
