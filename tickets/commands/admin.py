@@ -93,7 +93,7 @@ class AdminCommands(MixinMeta):
         em = Embed(
             title=panel_name + _(" Panel Saved"),
             description=_("Your panel has been added and will need to be configured."),
-            color=ctx.author.color,
+            color=0x6edfba,
         )
         async with self.config.guild(ctx.guild).panels() as panels:
             if panel_name in panels:
@@ -430,7 +430,7 @@ class AdminCommands(MixinMeta):
             await m.edit(embed=discord.Embed(description=_("Modal field addition cancelled"), color=color))
 
         foot = _("type 'cancel' to cancel at any time")
-        color = ctx.author.color
+        color = 0x6edfba
 
         modal = MODAL_SCHEMA.copy() if not existing_modal else existing_modal
         if preview:
@@ -646,7 +646,7 @@ class AdminCommands(MixinMeta):
             em = Embed(
                 title=_("Modal Fields for {}").format(panel_name),
                 description=desc,
-                color=ctx.author.color,
+                color= 0x6edfba,
             )
             em.set_footer(text=f"{panel_name}|{fieldname}")
             embeds.append(em)
@@ -711,7 +711,7 @@ class AdminCommands(MixinMeta):
         if panel_name not in panels:
             return await ctx.send(_("Panel does not exist!"))
         foot = _("type 'cancel' to cancel the setup")
-        color = ctx.author.color
+        color = 0x6edfba
         # TITLE
         em = Embed(
             description=_("Would you like this ticket embed to have a title?"),
@@ -798,7 +798,7 @@ class AdminCommands(MixinMeta):
             em = Embed(
                 title=_("Ticket Messages for: ") + panel_name,
                 description=desc,
-                color=ctx.author.color,
+                color=0x6edfba,
             )
             em.set_footer(text=_("Page") + f" {i + 1}/{len(messages)}")
             embeds.append(em)
@@ -881,7 +881,7 @@ class AdminCommands(MixinMeta):
             em = Embed(
                 title=panel_name,
                 description=desc,
-                color=ctx.author.color,
+                color=0x6edfba,
             )
             if panel_roles:
                 em.add_field(name=_("Panel Roles(Mention)"), value=panel_roles)
@@ -1376,7 +1376,7 @@ class AdminCommands(MixinMeta):
         """Create an embed for ticket panel buttons to be added to"""
         foot = _("type 'cancel' to cancel")
         channel = channel or ctx.channel
-        color = color or ctx.author.color
+        color = color or 0x6edfba
         # FOOTER
         em = Embed(
             description=_("Would you like this embed to have a footer?"),
