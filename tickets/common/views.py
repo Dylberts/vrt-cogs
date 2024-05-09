@@ -331,7 +331,7 @@ class SupportButton(Button):
         has_response = False
         if modal:
             title = _("Submission Info")
-            form_embed = discord.Embed(color=user.color)
+            form_embed = discord.Embed(color=discord.Color(0x6edfba))
             if user.avatar:
                 form_embed.set_author(name=title, icon_url=user.display_avatar.url)
             else:
@@ -561,7 +561,7 @@ class SupportButton(Button):
                 em = discord.Embed(
                     title=fmt_params(einfo["title"]) if einfo["title"] else None,
                     description=fmt_params(einfo["desc"]),
-                    color=user.color,
+                    color=discord.Color(0x6edfba),
                 )
                 if index == 0:
                     em.set_thumbnail(url=user.display_avatar.url)
@@ -574,7 +574,7 @@ class SupportButton(Button):
             )
         else:
             # Default message
-            em = discord.Embed(description=default_message, color=user.color)
+            em = discord.Embed(description=default_message, color=discord.Color(0x6edfba))
             em.set_thumbnail(url=user.display_avatar.url)
             msg = await channel_or_thread.send(
                 content=content, embed=em, allowed_mentions=allowed_mentions, view=close_view
@@ -589,7 +589,7 @@ class SupportButton(Button):
                 asyncio.create_task(channel_or_thread.send(txt))
 
         desc = _("Your ticket has been created! {}").format(channel_or_thread.mention)
-        em = discord.Embed(description=desc, color=user.color)
+        em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
                 asyncio.create_task(existing_msg.edit(content=None, embed=em))
