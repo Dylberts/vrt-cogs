@@ -121,23 +121,22 @@ class TestButton(View):
         style = get_color(style)
         butt = discord.ui.Button(label=label, style=style, emoji=emoji)
         self.add_item(butt)
+# Dylberts 
+ class CloseReasonModal(Modal):
+     def __init__(self):
+        self.reason = None
+        super().__init__(title=_("Closing your ticket"), timeout=0)
+        self.field = TextInput(
+            label=_("Reason for closing"),
+            style=TextStyle.short,
+            required=False,
+        )
+        self.add_item(self.field)
 
-### Disbaled the closed ticket submission Discord prompt for personal preferance (Dylberts)
-# class CloseReasonModal(Modal):
-    # def __init__(self):
-       # self.reason = None
-       # super().__init__(title=_("Closing your ticket"), timeout=120)
-       # self.field = TextInput(
-           # label=_("Reason for closing"),
-           # style=TextStyle.short,
-           # required=True,
-       # )
-       # self.add_item(self.field)
-
-   # async def on_submit(self, interaction: Interaction):
-       # self.reason = self.field.value
-       # await interaction.response.defer()
-       # self.stop()
+    async def on_submit(self, interaction: Interaction):
+        self.reason = self.field.value
+        await interaction.response.defer()
+        self.stop()
 
 
 class CloseView(View):
