@@ -172,7 +172,7 @@ class CloseView(View):
             return
 
         conf = await self.config.guild(interaction.guild).all()
-        if not await can_close(self.bot, interaction.guild, interaction.channel, user, self.owner_id, user_can_close, conf): #test
+        if not await can_close(self.bot, interaction.guild, interaction.channel, user, self.owner_id, user.id, conf): #test
             return await interaction.response.send_message(
                 _("You do not have permissions to close this ticket"), ephemeral=True
             )
