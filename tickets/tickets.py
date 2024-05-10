@@ -290,17 +290,17 @@ class Tickets(TicketCommands, Functions, commands.Cog, metaclass=CompositeMetaCl
                             guild,
                             channel,
                             conf,
-                            _("(Auto-Close) Opened ticket with no response for ") + f"{inactive} {time}",
+                            _("(Auto-Close) Opened request with no response for ") + f"{inactive} {time}",
                             self.bot.user.name,
                             self.config,
                         )
                         log.info(
-                            f"Ticket opened by {member.name} has been auto-closed.\n"
+                            f"Request opened by {member.name} has been auto-closed.\n"
                             f"Has typed: {hastyped}\n"
                             f"Hours elapsed: {td}"
                         )
                     except Exception as e:
-                        log.error(f"Failed to auto-close ticket for {member} in {guild.name}\nException: {e}")
+                        log.error(f"Failed to auto-close request for {member} in {guild.name}\nException: {e}")
 
         if tasks:
             await asyncio.gather(*actasks)
@@ -342,7 +342,7 @@ class Tickets(TicketCommands, Functions, commands.Cog, metaclass=CompositeMetaCl
                     config=self.config,
                 )
             except Exception as e:
-                log.error(f"Failed to auto-close ticket for {member} leaving {member.guild}\nException: {e}")
+                log.error(f"Failed to auto-close request for {member} leaving {member.guild}\nException: {e}")
 
     @commands.Cog.listener()
     async def on_thread_delete(self, thread: discord.Thread):
