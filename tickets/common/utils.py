@@ -108,14 +108,14 @@ async def close_ticket(
     closer_name = escape_markdown(closedby)
 
     desc = _(
-        "```Issued By:```\n"
+        "``Issued By:``\n"
         "{}\n"
         #"`PanelType: `{}\n"
         #"```:```\n" 
         #"<t:{}:F>\n"
         #"```Completed:```\n"
         #"<t:{}:F>\n"
-        "```Completed By:```\n" 
+        "``Handled By:``\n" 
         "{}\n"
         #"`Reason:    `{}\n"
     ).format(
@@ -131,13 +131,13 @@ async def close_ticket(
         desc += _("`Thread:    `{}\n").format(channel.mention)
 
     backup_text = _("Request Closed\n{}\nCurrently missing permissions to send embeds to this channel!").format(desc)
-    embed_title = _("**Request Completed**") #Dylberts changed the text of closing ticket embed
+    embed_title = _("**Request Completed!**") #Dylberts changed the text of closing ticket embed
     embed = discord.Embed(
         title=embed_title,
         description=desc,
         color=discord.Color(0x6edfba), #Dylberts changed color of embed when a ticket has been closed/finished
     )
-    embed.set_thumbnail(url=pfp)
+    embed.set_thumbnail(url='https://i.ibb.co/GvQXQ3V/Sofia.png') #Dylberts could change to url=pfp for user's pfp
     log_chan = guild.get_channel(panel["log_channel"]) if panel["log_channel"] else None
 
     text = ""
