@@ -131,7 +131,7 @@ async def close_ticket(
     embed = discord.Embed(
         title=embed_title,
         description=desc,
-        color=discord.Color(0x6edfba)), #Dylberts changed color of embed when a ticket has been closed/finished
+        color=discord.Color(0x6edfba), #Dylberts changed color of embed when a ticket has been closed/finished
     )
     embed.set_thumbnail(url=pfp)
     log_chan = guild.get_channel(panel["log_channel"]) if panel["log_channel"] else None
