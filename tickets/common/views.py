@@ -179,7 +179,7 @@ class CloseView(View):
             config=self.config,
         )
       #  if not user:
-            return
+      #      return
 
       #  conf = await self.config.guild(interaction.guild).all()
       #  if not await can_close(self.bot, interaction.guild, interaction.channel, user, self.owner_id, conf): #test
