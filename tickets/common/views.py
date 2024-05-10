@@ -333,7 +333,7 @@ class SupportButton(Button):
             title = _("Submission Info")
             form_embed = discord.Embed(color=discord.Color(0x6edfba))
             if user.avatar:
-                form_embed.set_author(name=title, icon_url=https://i.ibb.co/GvQXQ3V/Sofia.png) #Dylberts changes ticket thumbnails to Sofia instead of user opening ticket
+                form_embed.set_author(name=title, icon_url=(https://i.ibb.co/GvQXQ3V/Sofia.png)) #Dylberts changes ticket thumbnails to Sofia instead of user opening ticket
             else:
                 form_embed.set_author(name=title)
 
@@ -564,7 +564,7 @@ class SupportButton(Button):
                     color=discord.Color(0x6edfba),
                 )
                 if index == 0:
-                    em.set_thumbnail(url=https://i.ibb.co/GvQXQ3V/Sofia.png) #Dylberts thumbnail change
+                    em.set_thumbnail(url=(https://i.ibb.co/GvQXQ3V/Sofia.png)) #Dylberts thumbnail change
                 if einfo["footer"]:
                     em.set_footer(text=fmt_params(einfo["footer"]))
                 embeds.append(em)
@@ -575,7 +575,7 @@ class SupportButton(Button):
         else:
             # Default message
             em = discord.Embed(description=default_message, color=discord.Color(0x6edfba))
-            em.set_thumbnail(url=https://i.ibb.co/GvQXQ3V/Sofia.png) #Dylberts thumbnail change
+            em.set_thumbnail(url=(https://i.ibb.co/GvQXQ3V/Sofia.png)) #Dylberts thumbnail change
             msg = await channel_or_thread.send(
                 content=content, embed=em, allowed_mentions=allowed_mentions, view=close_view
             )
@@ -624,7 +624,7 @@ class SupportButton(Button):
                 color=discord.Color.red(),
             )
             if user.avatar:
-                em.set_thumbnail(url=https://i.ibb.co/GvQXQ3V/Sofia.png) #Dylberts thumbnail change
+                em.set_thumbnail(url=(https://i.ibb.co/GvQXQ3V/Sofia.png)) #Dylberts thumbnail change
 
             for question, answer in answers.items():
                 em.add_field(name=f"__{question}__", value=answer, inline=False)
