@@ -122,7 +122,7 @@ class TestButton(View):
         butt = discord.ui.Button(label=label, style=style, emoji=emoji)
         self.add_item(butt)
 
-# Dylberts 
+# Dylberts made required false and timeout 0 from 120
 class CloseReasonModal(Modal):
     def __init__(self):
         self.reason = None
@@ -168,40 +168,7 @@ class CloseView(View):
         if not interaction.guild or not interaction.channel:
             return
         user = interaction.guild.get_member(interaction.user.id)
-        if not user:
-            return
-
-        conf = await self.config.guild(interaction.guild).all()
-        if not await can_close(self.bot, interaction.guild, interaction.channel, user, self.owner_id, interaction.user.id, conf): #test
-            return await interaction.response.send_message(
-                _("You do not have permissions to close this ticket"), ephemeral=True
-            )
-        panel_name = conf["opened"][str(self.owner_id)][str(self.channel.id)]["panel"]
-        requires_reason = conf["panels"][panel_name].get("close_reason", True)
-        reason = None
-        if requires_reason:
-            modal = CloseReasonModal()
-            try:
-                await interaction.response.send_modal(modal)
-            except discord.NotFound:
-                txt = _("Something went wrong, please try again.")
-                try:
-                    await interaction.followup.send(txt, ephemeral=True)
-                except discord.NotFound:
-                    await interaction.channel.send(txt, delete_after=10)
-                return
-
-            await modal.wait()
-            if modal.reason is None:
-                return
-            reason = modal.reason
-            await interaction.followup.send(_("Closing..."), ephemeral=True)
-        else:
-            await interaction.response.send_message(_("Closing..."), ephemeral=True)
-        owner = self.channel.guild.get_member(int(self.owner_id))
-        if not owner:
-            owner = await self.bot.fetch_user(int(self.owner_id))
-        await close_ticket(
+         await close_ticket(
             bot=self.bot,
             member=owner,
             guild=self.channel.guild,
@@ -211,6 +178,49 @@ class CloseView(View):
             closedby=interaction.user.display_name,
             config=self.config,
         )
+      #  if not user:
+            return
+
+      #  conf = await self.config.guild(interaction.guild).all()
+      #  if not await can_close(self.bot, interaction.guild, interaction.channel, user, self.owner_id, conf): #test
+      #      return await interaction.response.send_message(
+      #          _("You do not have permissions to close this ticket"), ephemeral=True
+      #      )
+      #  panel_name = conf["opened"][str(self.owner_id)][str(self.channel.id)]["panel"]
+      #  requires_reason = conf["panels"][panel_name].get("close_reason", True)
+      #  reason = None
+      #  if requires_reason:
+      #      modal = CloseReasonModal()
+      #     try:
+      #          await interaction.response.send_modal(modal)
+      #      except discord.NotFound:
+      #          txt = _("Something went wrong, please try again.")
+      #          try:
+      #              await interaction.followup.send(txt, ephemeral=True)
+      #          except discord.NotFound:
+      #              await interaction.channel.send(txt, delete_after=10)
+      #          return
+
+      #      await modal.wait()
+      #      if modal.reason is None:
+      #          return
+      #      reason = modal.reason
+      #      await interaction.followup.send(_("Closing..."), ephemeral=True)
+      #  else:
+      #      await interaction.response.send_message(_("Closing..."), ephemeral=True)
+      #  owner = self.channel.guild.get_member(int(self.owner_id))
+      #  if not owner:
+      #      owner = await self.bot.fetch_user(int(self.owner_id))
+      #  await close_ticket(
+      #      bot=self.bot,
+      #      member=owner,
+      #      guild=self.channel.guild,
+      #      channel=self.channel,
+      #      conf=conf,
+      #      reason=reason,
+      #      closedby=interaction.user.display_name,
+      #      config=self.config,
+      #  )
 
 
 class TicketModal(Modal):
