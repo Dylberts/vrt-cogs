@@ -611,17 +611,17 @@ class SupportButton(Button):
                 "jumpurl": msg.jump_url,
             }
             desc = _(
-                "`Created By: `{user}\n"
-                "`User ID:    `{userid}\n"
-                "`Opened:     `{timestamp}\n"
-                "`Ticket:     `{channelname}\n"
-                "`Panel Name: `{panelname}\n"
-                "**[Click to Jump!]({jumpurl})**"
+                "`Requested By: `{user}\n" #Dylberts
+                #"`User ID:    `{userid}\n" #
+                "`Wait Time:     `{timestamp}\n" #
+                "`Asking For:     `{channelname}\n" #
+                #"`Panel Name: `{panelname}\n" #
+                #"**[Click to Jump!]({jumpurl})**" #Dylberts^ change all of these texts for the embed mods see when picking up a ticket
             ).format(**kwargs)
             em = discord.Embed(
-                title=_("Ticket Opened"),
+                title=_("**A Transcender Needs Help!**"), #Dylberts: changed the "Ticket Opened" phrase mods see when tickets open
                 description=desc,
-                color=discord.Color.red(),
+                color=discord.Color(0x6edfba)), #Dylberts: changed color of embed msg mods receive when a ticket is opened
             )
             if user.avatar:
                 em.set_thumbnail(url='https://i.ibb.co/GvQXQ3V/Sofia.png') #Dylberts thumbnail change
@@ -693,7 +693,7 @@ class LogView(View):
         self.added = set()
         self.join_ticket.custom_id = str(channel.id)
 
-    @discord.ui.button(label="Join Ticket", style=ButtonStyle.green)
+    @discord.ui.button(label="Accept Request", style=ButtonStyle.green) #Dylvberts: changed text of button mods see to pick up a ticket
     async def join_ticket(self, interaction: Interaction, button: Button):
         user = interaction.guild.get_member(interaction.user.id)
         if not user:
