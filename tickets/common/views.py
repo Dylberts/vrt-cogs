@@ -166,18 +166,11 @@ class CloseView(View):
     @discord.ui.button(label="Close", style=ButtonStyle.danger)
     async def closeticket(self, interaction: Interaction, button: Button):
         if not interaction.guild or not interaction.channel:
-            return
+            return close_ticket() #close_ticket() didn't exist prior
         user = interaction.guild.get_member(interaction.user.id)
-         await close_ticket(
-            bot=self.bot,
-            member=owner,
-            guild=self.channel.guild,
-            channel=self.channel,
-            conf=conf,
-            reason=reason,
-            closedby=interaction.user.display_name,
-            config=self.config,
-        )
+        
+        
+        
       #  if not user:
       #      return
 
