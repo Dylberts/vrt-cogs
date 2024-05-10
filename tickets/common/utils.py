@@ -108,11 +108,15 @@ async def close_ticket(
     closer_name = escape_markdown(closedby)
 
     desc = _(
-        "Requested By:\n {}\n"
+        "```Issued By:```\n"
+        "{}\n"
         #"`PanelType: `{}\n"
-        "`Opened On:\n `<t:{}:F>\n"
-        "`Closed On:\n `<t:{}:F>\n"
-        "`Completed By:\n `{}\n"
+        #"```:```\n" 
+        #"<t:{}:F>\n"
+        #"```Completed:```\n"
+        #"<t:{}:F>\n"
+        "```Completed By:```\n" 
+        "{}\n"
         #"`Reason:    `{}\n"
     ).format(
         member.display_name,
@@ -126,8 +130,8 @@ async def close_ticket(
     if isinstance(channel, discord.Thread) and conf["thread_close"]:
         desc += _("`Thread:    `{}\n").format(channel.mention)
 
-    backup_text = _("Ticket Closed\n{}\nCurrently missing permissions to send embeds to this channel!").format(desc)
-    embed_title = _("**Transcender's Request Completed**") #Dylberts changed the text of closing ticket embed
+    backup_text = _("Request Closed\n{}\nCurrently missing permissions to send embeds to this channel!").format(desc)
+    embed_title = _("**Request Completed**") #Dylberts changed the text of closing ticket embed
     embed = discord.Embed(
         title=embed_title,
         description=desc,
