@@ -621,7 +621,7 @@ class SupportButton(Button):
             em = discord.Embed(
                 title=_("**A Transcender Needs Help!**"), #Dylberts: changed the "Ticket Opened" phrase mods see when tickets open
                 description=desc,
-                color=discord.Color(0x6edfba)), #Dylberts: changed color of embed msg mods receive when a ticket is opened
+                color=discord.Color(0x6edfba), #Dylberts: changed color of embed msg mods receive when a ticket is opened
             )
             if user.avatar:
                 em.set_thumbnail(url='https://i.ibb.co/GvQXQ3V/Sofia.png') #Dylberts thumbnail change
