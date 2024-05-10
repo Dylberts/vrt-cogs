@@ -611,11 +611,12 @@ class SupportButton(Button):
                 "jumpurl": msg.jump_url,
             }
             desc = _(
-                "`Requested By: `{user}\n" #Dylberts
-                #"`User ID:    `{userid}\n" #
-                "`Wait Time:     `{timestamp}\n" #
-                "`Asking For:     `{channelname}\n" #
-                #"`Panel Name: `{panelname}\n" #
+                "`Requested By:`" 
+                "{user}\n" #Dylberts
+                #"`User ID:    `{userid}\n" # Not using personally
+                "`Wait Time:     `{timestamp}\n"
+                "`Asking For:     `{channelname}\n"
+                #"`Panel Name: `{panelname}\n" # not in use
                 #"**[Click to Jump!]({jumpurl})**" #Dylberts^ change all of these texts for the embed mods see when picking up a ticket
             ).format(**kwargs)
             em = discord.Embed(
