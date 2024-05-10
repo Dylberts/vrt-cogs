@@ -126,7 +126,7 @@ class TestButton(View):
 class CloseReasonModal(Modal):
     def __init__(self):
         self.reason = None
-        super().__init__(title=_("Closing your ticket"), timeout=120)
+        super().__init__(title=_("Closing your request"), timeout=120)
         self.field = TextInput(
             label=_("Reason for closing"),
             style=TextStyle.short,
@@ -195,9 +195,9 @@ class CloseView(View):
             if modal.reason is None:
                 return
             reason = modal.reason
-            await interaction.followup.send(_("Closing..."), ephemeral=True)
+            await interaction.followup.send(_("Understood! Closing request..."), ephemeral=True)
         else:
-            await interaction.response.send_message(_("Closing..."), ephemeral=True)
+            await interaction.response.send_message(_("Understood! Closing request..."), ephemeral=True)
         owner = self.channel.guild.get_member(int(self.owner_id))
         if not owner:
             owner = await self.bot.fetch_user(int(self.owner_id))
@@ -588,7 +588,7 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        desc = _("Your ticket has been created! {}").format(channel_or_thread.mention)
+        desc = _("Request initiated: {}").format(channel_or_thread.mention)
         em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
@@ -611,12 +611,12 @@ class SupportButton(Button):
                 "jumpurl": msg.jump_url,
             }
             desc = _(
-                "```Issued By:```\n"
+                "``Issued By:``\n"
                 "{user}\n" #Dylberts
                 #"`User ID:    `{userid}\n" # Not using personally
-                "```Waiting Since:```\n"
+                "``Waiting Since:``\n"
                 "{timestamp}\n"
-                "```Needs:```\n"
+                "``Needs:``\n"
                 "{channelname}\n"
                 #"`Panel Name: `{panelname}\n" # not in use
                 #"**[Click to Jump!]({jumpurl})**" #Dylberts^ change all of these texts for the embed mods see when picking up a ticket
