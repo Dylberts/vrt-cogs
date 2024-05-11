@@ -118,12 +118,12 @@ async def close_ticket(
         "``Closed By:``\n"    
         "{closer_name}\n" #changed
         "``Requested:``\n" #changed
-        "{member.channel}\n" ##changed
+        "{channel}\n" ##changed
        
     ).format(
         member.display_name,
         member.id,
-        member.channel, #
+        channel, #
         panel_name,
         opened,
         closed,
