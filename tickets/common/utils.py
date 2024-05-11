@@ -115,8 +115,8 @@ async def close_ticket(
         #"<t:{}:F>\n" # time string
         #"```Completed:```\n"
         #"<t:{}:F>\n" #time string
-        "``Close By:``\n"    
-        "{}\n"
+        "``Closed By:``\n"    
+        "{user.name}\n" #changed
         #"``REASON:``\n" 
         #"{}\n"
        
