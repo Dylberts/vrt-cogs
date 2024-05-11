@@ -299,7 +299,7 @@ class SupportButton(Button):
         if uid in opened and max_tickets <= len(opened[uid]):
             channels = "\n".join([f"<#{i}>" for i in opened[uid]])
             em = discord.Embed(
-                description=_("You have the maximum amount of tickets opened already!{}").format(f"\n{channels}"),
+                description=_("You've already started an existing request!").format(f"\n{channels}"), # {} would = the thread channel
                 color=discord.Color.red(),
             )
             return await interaction.response.send_message(embed=em, ephemeral=True)
@@ -373,7 +373,7 @@ class SupportButton(Button):
                         inline=False,
                     )
 
-        open_txt = _("Your ticket is being created, one moment...")
+        open_txt = _("Processing request...")
         if modal:
             existing_msg = await interaction.followup.send(open_txt, ephemeral=True)
         else:
@@ -588,7 +588,7 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        desc = _("Request initiated: {}").format(channel_or_thread.mention)
+        desc = _("Request established in {}").format(channel_or_thread.mention)
         em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
@@ -611,18 +611,18 @@ class SupportButton(Button):
                 "jumpurl": msg.jump_url,
             }
             desc = _(
-                "``Issued By:``\n"
+                "``Member:``\n"
                 "{user}\n" #Dylberts
                 #"`User ID:    `{userid}\n" # Not using personally
                 "``Waiting Since:``\n"
                 "{timestamp}\n"
-                "``Needs:``\n"
+                "``Request:``\n"
                 "{channelname}\n"
                 #"`Panel Name: `{panelname}\n" # not in use
                 #"**[Click to Jump!]({jumpurl})**" #Dylberts^ change all of these texts for the embed mods see when picking up a ticket
             ).format(**kwargs)
             em = discord.Embed(
-                title=_("**A Transcender Needs Help!**"), #Dylberts: changed the "Ticket Opened" phrase mods see when tickets open
+                title=_("**Transcender Requesting Help:**"), #Dylberts: changed the "Ticket Opened" phrase mods see when tickets open
                 description=desc,
                 color=discord.Color(0x6edfba), #Dylberts: changed color of embed msg mods receive when a ticket is opened
             )
@@ -720,7 +720,7 @@ class LogView(View):
         if isinstance(self.channel, discord.TextChannel):
             if all(perms):
                 return await interaction.response.send_message(
-                    _("You're already helping this Transcender **{}**!").format(self.channel.name),
+                    _("You've already accepted a request in #{}").format(self.channel.name), #change
                     ephemeral=True,
                     delete_after=30,
                 )
@@ -730,7 +730,7 @@ class LogView(View):
             await self.channel.add_user(user)
         self.added.add(user.id)
         await interaction.response.send_message(
-            _("You've been assigned to help in **#{}**...").format(self.channel.name),
+            _("You've already accepted a request in #{}...").format(self.channel.name), #change
             ephemeral=True,
             delete_after=30,
         )
