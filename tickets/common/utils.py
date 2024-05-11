@@ -122,12 +122,12 @@ async def close_ticket(
        
     ).format(
         member.display_name,
-        member.id,
+        #member.id,
         #panel_name,
         #opened,
-        closed,
+        #closed,
         closer_name,
-        discord.Thread, #
+        channel.mention, #
         #str(reason),
     )
     if isinstance(channel, discord.Thread) and conf["thread_close"]:
