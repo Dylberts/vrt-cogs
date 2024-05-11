@@ -106,7 +106,7 @@ async def close_ticket(
     opened = int(datetime.fromisoformat(ticket["opened"]).timestamp())
     closed = int(datetime.now().timestamp())
     closer_name = escape_markdown(closedby)
-    #chan_mention = channel.mention() #changed
+    chan_mention = channel.mention() #changed
 
     desc = _(
         "``Member:``\n"
