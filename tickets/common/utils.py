@@ -116,19 +116,19 @@ async def close_ticket(
         #"```Completed:```\n"
         #"<t:{}:F>\n" #time string
         "``Closed By:``\n"    
-        "{closer_name}\n" #changed
+        "{}\n" #changed
         "``Requested:``\n" #changed
-        #"{discord.Thread}\n" ##changed
+        "{}\n" ##changed
        
     ).format(
         member.display_name,
         member.id,
-        #discord.Thread, #
-        panel_name,
-        opened,
+        #panel_name,
+        #opened,
         closed,
         closer_name,
-        str(reason),
+        discord.Thread, #
+        #str(reason),
     )
     if isinstance(channel, discord.Thread) and conf["thread_close"]:
         desc += _("`Thread:    `{}\n").format(channel.mention)
