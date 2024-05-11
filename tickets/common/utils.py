@@ -121,13 +121,13 @@ async def close_ticket(
         "{}\n" ##changed
        
     ).format(
-        member.display_name,
+        member.display_name, #these have to be in ascending order to the desc = above it to work properly
         #member.id,
         #panel_name,
         #opened,
         #closed,
         closer_name,
-        channel.mention, #
+        channel.name, #
         #str(reason),
     )
     if isinstance(channel, discord.Thread) and conf["thread_close"]:
