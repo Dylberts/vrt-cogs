@@ -301,6 +301,8 @@ class SupportButton(Button):
             em = discord.Embed(
                 description=_("You've already started an existing request!").format(f"\n{channels}"), # {} would = the thread channel
                 color=discord.Color.red(),
+                delete_after=20,
+                
             )
             return await interaction.response.send_message(embed=em, ephemeral=True)
 
@@ -588,7 +590,7 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        desc = _("Request established in {}").format(channel_or_thread.mention)
+        desc = _("Generating... {}").format(channel_or_thread.mention.delete_after=60)
         em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
@@ -720,7 +722,7 @@ class LogView(View):
         if isinstance(self.channel, discord.TextChannel):
             if all(perms):
                 return await interaction.response.send_message(
-                    _("Authorizing your accepted request here:\n" "{}").format(self.channel.mention), #change #
+                    _("Request confirmed! Redirecting you now...\n" "{}").format(self.channel.mention), #change
                     ephemeral=True,
                     delete_after=20,
                 )
@@ -730,7 +732,7 @@ class LogView(View):
             await self.channel.add_user(user)
         self.added.add(user.id)
         await interaction.response.send_message(
-            _("Authorizing your accepted request here:\n" "{}").format(self.channel.mention), #change
+            _("Request confirmed! Redirecting you now...\n" "{}").format(self.channel.mention), #change
             ephemeral=True,
             delete_after=20,
         )
