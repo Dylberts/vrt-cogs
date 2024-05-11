@@ -730,7 +730,7 @@ class LogView(View):
             await self.channel.add_user(user)
         self.added.add(user.id)
         await interaction.response.send_message(
-            _("You are now assisting this Transcender **{}**...").format(self.channel.name),
+            _("You've been assigned to help in **#{}**...").format(self.channel.name),
             ephemeral=True,
             delete_after=30,
         )
