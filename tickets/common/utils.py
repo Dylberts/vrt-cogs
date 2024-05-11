@@ -106,6 +106,7 @@ async def close_ticket(
     opened = int(datetime.fromisoformat(ticket["opened"]).timestamp())
     closed = int(datetime.now().timestamp())
     closer_name = escape_markdown(closedby)
+    #chan_mention = channel.mention() #changed
 
     desc = _(
         "``Member:``\n"
@@ -118,13 +119,13 @@ async def close_ticket(
         "``Closed By:``\n"    
         "{closer_name}\n" #changed
         "``Requested:``\n" #changed
-        "{channel.mention}\n" #changed
+        "{chan_mention}\n" #changed
        
     ).format(
         member.display_name,
         member.id,
         panel_name,
-        channel.mention, # Changed
+        chan_mention, # Changed
         opened,
         closed,
         closer_name,
@@ -507,7 +508,7 @@ async def update_active_overview(guild: discord.Guild, conf: dict) -> Optional[i
             timestamp=datetime.now(),
         )
         embeds.append(embed)
-        filename = _("Active Tickets") + ".txt"
+        filename = _("Active Requests") + ".txt"
         file = text_to_file(txt, filename=filename)
         attachments = [file]
 
