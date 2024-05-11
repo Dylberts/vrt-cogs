@@ -110,14 +110,15 @@ async def close_ticket(
     desc = _(
         "``Member:``\n"
         "{}\n"
-        #"`PanelType: `{}\n"
+        #"`PanelType: `{}\n" #panel ticket name
         #"```:```\n" 
-        #"<t:{}:F>\n"
+        #"<t:{}:F>\n" # time string
         #"```Completed:```\n"
-        #"<t:{}:F>\n"
+        #"<t:{}:F>\n" #time string
+        "``Request:``\n"    
+        ``{}\n"
         "``Handled By:``\n" 
         "{}\n"
-        #"`Reason:    `{}\n"
     ).format(
         member.display_name,
         member.id,
