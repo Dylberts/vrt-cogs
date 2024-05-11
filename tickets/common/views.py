@@ -126,7 +126,7 @@ class TestButton(View):
 class CloseReasonModal(Modal):
     def __init__(self):
         self.reason = None
-        super().__init__(title=_("Closing your ticket"), timeout=120)
+        super().__init__(title=_("Closing your request"), timeout=120)
         self.field = TextInput(
             label=_("Reason for closing"),
             style=TextStyle.short,
@@ -195,9 +195,9 @@ class CloseView(View):
             if modal.reason is None:
                 return
             reason = modal.reason
-            await interaction.followup.send(_("Closing..."), ephemeral=True)
+            await interaction.followup.send(_("Understood! Now closing request..."), ephemeral=True)
         else:
-            await interaction.response.send_message(_("Closing..."), ephemeral=True)
+            await interaction.response.send_message(_("Understood! Now closing request..."), ephemeral=True)
         owner = self.channel.guild.get_member(int(self.owner_id))
         if not owner:
             owner = await self.bot.fetch_user(int(self.owner_id))
@@ -299,7 +299,7 @@ class SupportButton(Button):
         if uid in opened and max_tickets <= len(opened[uid]):
             channels = "\n".join([f"<#{i}>" for i in opened[uid]])
             em = discord.Embed(
-                description=_("You have the maximum amount of tickets opened already!{}").format(f"\n{channels}"),
+                description=_("You've already started an existing request!").format(f"\n{channels}"), # {} would = the thread channel
                 color=discord.Color.red(),
             )
             return await interaction.response.send_message(embed=em, ephemeral=True)
@@ -331,9 +331,9 @@ class SupportButton(Button):
         has_response = False
         if modal:
             title = _("Submission Info")
-            form_embed = discord.Embed(color=user.color)
+            form_embed = discord.Embed(color=discord.Color(0x6edfba))
             if user.avatar:
-                form_embed.set_author(name=title, icon_url=user.display_avatar.url)
+                form_embed.set_author(name=title, icon_url='https://i.ibb.co/GvQXQ3V/Sofia.png') #Dylberts changes ticket thumbnails to Sofia instead of user opening ticket
             else:
                 form_embed.set_author(name=title)
 
@@ -373,7 +373,7 @@ class SupportButton(Button):
                         inline=False,
                     )
 
-        open_txt = _("Your ticket is being created, one moment...")
+        open_txt = _("Processing request...")
         if modal:
             existing_msg = await interaction.followup.send(open_txt, ephemeral=True)
         else:
@@ -470,7 +470,7 @@ class SupportButton(Button):
                         )
                         await channel_or_thread.send(
                             _(
-                                "I was not able to name the ticket properly due to Discord's filter!\nIntended name: {}"
+                                "I was not able to name this properly due to Discord's filter!\nIntended name: {}"
                             ).format(channel_name)
                         )
                     else:
@@ -497,14 +497,14 @@ class SupportButton(Button):
                         )
                         await channel_or_thread.send(
                             _(
-                                "I was not able to name the ticket properly due to Discord's filter!\nIntended name: {}"
+                                "I was not able to name this properly due to Discord's filter!\nIntended name: {}"
                             ).format(channel_name)
                         )
                     else:
                         raise e
         except discord.Forbidden:
             txt = _(
-                "I am missing the required permissions to create a ticket for you. "
+                "I am missing the required permissions to create a request for you. "
                 "Please contact an admin so they may fix my permissions."
             )
             em = discord.Embed(description=txt, color=discord.Color.red())
@@ -512,16 +512,16 @@ class SupportButton(Button):
 
         except Exception as e:
             em = discord.Embed(
-                description=_("There was an error while preparing your ticket, please contact an admin!\n{}").format(
+                description=_("There was an error while preparing your request, please contact an admin!\n{}").format(
                     box(str(e), "py")
                 ),
                 color=discord.Color.red(),
             )
-            log.info(f"Failed to create ticket for {user.display_name} in {guild.name}", exc_info=e)
+            log.info(f"Failed to create request for {user.display_name} in {guild.name}", exc_info=e)
             return await interaction.followup.send(embed=em, ephemeral=True)
 
         prefix = (await self.view.bot.get_valid_prefixes(self.view.guild))[0]
-        default_message = _("Welcome to your ticket channel ") + f"{user.display_name}!"
+        default_message = _("Welcome to your request channel ") + f"{user.display_name}!"
         if user_can_close:
             default_message += _("\nYou or an admin can close this with the `{}close` command").format(prefix)
 
@@ -561,10 +561,10 @@ class SupportButton(Button):
                 em = discord.Embed(
                     title=fmt_params(einfo["title"]) if einfo["title"] else None,
                     description=fmt_params(einfo["desc"]),
-                    color=user.color,
+                    color=discord.Color(0x6edfba),
                 )
                 if index == 0:
-                    em.set_thumbnail(url=user.display_avatar.url)
+                    em.set_thumbnail(url='https://i.ibb.co/GvQXQ3V/Sofia.png') #Dylberts thumbnail change
                 if einfo["footer"]:
                     em.set_footer(text=fmt_params(einfo["footer"]))
                 embeds.append(em)
@@ -574,8 +574,8 @@ class SupportButton(Button):
             )
         else:
             # Default message
-            em = discord.Embed(description=default_message, color=user.color)
-            em.set_thumbnail(url=user.display_avatar.url)
+            em = discord.Embed(description=default_message, color=discord.Color(0x6edfba))
+            em.set_thumbnail(url='https://i.ibb.co/GvQXQ3V/Sofia.png') #Dylberts thumbnail change
             msg = await channel_or_thread.send(
                 content=content, embed=em, allowed_mentions=allowed_mentions, view=close_view
             )
@@ -588,8 +588,8 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        desc = _("Your ticket has been created! {}").format(channel_or_thread.mention)
-        em = discord.Embed(description=desc, color=user.color)
+        desc = _("Request established in {}").format(channel_or_thread.mention)
+        em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
                 asyncio.create_task(existing_msg.edit(content=None, embed=em))
@@ -611,20 +611,23 @@ class SupportButton(Button):
                 "jumpurl": msg.jump_url,
             }
             desc = _(
-                "`Created By: `{user}\n"
-                "`User ID:    `{userid}\n"
-                "`Opened:     `{timestamp}\n"
-                "`Ticket:     `{channelname}\n"
-                "`Panel Name: `{panelname}\n"
-                "**[Click to Jump!]({jumpurl})**"
+                "``Member:``\n"
+                "{user}\n" #Dylberts
+                #"`User ID:    `{userid}\n" # Not using personally
+                "``Waiting Since:``\n"
+                "{timestamp}\n"
+                "``Request:``\n"
+                "{channelname}\n"
+                #"`Panel Name: `{panelname}\n" # not in use
+                #"**[Click to Jump!]({jumpurl})**" #Dylberts^ change all of these texts for the embed mods see when picking up a ticket
             ).format(**kwargs)
             em = discord.Embed(
-                title=_("Ticket Opened"),
+                title=_("**Transcender Requesting Help**"), #Dylberts: changed the "Ticket Opened" phrase mods see when tickets open
                 description=desc,
-                color=discord.Color.red(),
+                color=discord.Color(0x6edfba), #Dylberts: changed color of embed msg mods receive when a ticket is opened
             )
             if user.avatar:
-                em.set_thumbnail(url=user.display_avatar.url)
+                em.set_thumbnail(url='https://i.ibb.co/GvQXQ3V/Sofia.png') #Dylberts thumbnail change
 
             for question, answer in answers.items():
                 em.add_field(name=f"__{question}__", value=answer, inline=False)
@@ -693,22 +696,22 @@ class LogView(View):
         self.added = set()
         self.join_ticket.custom_id = str(channel.id)
 
-    @discord.ui.button(label="Join Ticket", style=ButtonStyle.green)
+    @discord.ui.button(label="Accept Request", style=ButtonStyle.green) #Dylvberts: changed text of button mods see to pick up a ticket
     async def join_ticket(self, interaction: Interaction, button: Button):
         user = interaction.guild.get_member(interaction.user.id)
         if not user:
             return
         if user.id in self.added:
             return await interaction.response.send_message(
-                _("You have already been added to the ticket **{}**!").format(self.channel.name),
+                _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #changed
                 ephemeral=True,
-                delete_after=60,
+                delete_after=30,
             )
         if self.max_claims and len(self.added) >= self.max_claims:
             return await interaction.response.send_message(
-                _("The maximum amount of staff have claimed this ticket!"),
+                _("Someone is already assisting this Transcender!"),
                 ephemeral=True,
-                delete_after=60,
+                delete_after=30,
             )
         perms = [
             self.channel.permissions_for(user).view_channel,
@@ -717,9 +720,9 @@ class LogView(View):
         if isinstance(self.channel, discord.TextChannel):
             if all(perms):
                 return await interaction.response.send_message(
-                    _("You already have access to the ticket **{}**!").format(self.channel.name),
+                    _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #change
                     ephemeral=True,
-                    delete_after=60,
+                    delete_after=30,
                 )
             await self.channel.set_permissions(user, read_messages=True, send_messages=True)
             await self.channel.send(_("{} was added to the ticket").format(str(user)))
@@ -727,7 +730,7 @@ class LogView(View):
             await self.channel.add_user(user)
         self.added.add(user.id)
         await interaction.response.send_message(
-            _("You have been added to the ticket **{}**").format(self.channel.name),
+            _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #change
             ephemeral=True,
-            delete_after=60,
+            delete_after=30,
         )
