@@ -590,7 +590,7 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        desc = _("Generating... {}").format(channel_or_thread.mention.delete_after=60)
+        desc = _("Generating... {}").format(channel_or_thread.mention, delete_after=60)
         em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
