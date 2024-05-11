@@ -195,9 +195,9 @@ class CloseView(View):
             if modal.reason is None:
                 return
             reason = modal.reason
-            await interaction.followup.send(_("Understood! Closing request..."), ephemeral=True)
+            await interaction.followup.send(_("Understood! Now closing request..."), ephemeral=True)
         else:
-            await interaction.response.send_message(_("Understood! Closing request..."), ephemeral=True)
+            await interaction.response.send_message(_("Understood! Now closing request..."), ephemeral=True)
         owner = self.channel.guild.get_member(int(self.owner_id))
         if not owner:
             owner = await self.bot.fetch_user(int(self.owner_id))
@@ -703,7 +703,7 @@ class LogView(View):
             return
         if user.id in self.added:
             return await interaction.response.send_message(
-                _("You've already agreed to help this Transcender **{}**!").format(self.channel.name),
+                _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #changed
                 ephemeral=True,
                 delete_after=30,
             )
@@ -720,7 +720,7 @@ class LogView(View):
         if isinstance(self.channel, discord.TextChannel):
             if all(perms):
                 return await interaction.response.send_message(
-                    _("You've already accepted a request in #{}").format(self.channel.name), #change
+                    _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #change
                     ephemeral=True,
                     delete_after=30,
                 )
@@ -730,7 +730,7 @@ class LogView(View):
             await self.channel.add_user(user)
         self.added.add(user.id)
         await interaction.response.send_message(
-            _("You've already accepted a request in #{}...").format(self.channel.name), #change
+            _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #change
             ephemeral=True,
             delete_after=30,
         )
