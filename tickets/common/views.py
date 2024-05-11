@@ -301,8 +301,7 @@ class SupportButton(Button):
             em = discord.Embed(
                 description=_("You've already started an existing request!").format(f"\n{channels}"), # {} would = the thread channel
                 color=discord.Color.red(),
-                delete_after=20,
-                
+                delete_after=20, #recent change
             )
             return await interaction.response.send_message(embed=em, ephemeral=True)
 
@@ -590,7 +589,7 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        desc = _("Generating... {}").format(channel_or_thread.mention, delete_after=60)
+        desc = _("Request initiated: Redirecting you now...\n" "{}").format(channel_or_thread.mention, delete_after=60,)
         em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
