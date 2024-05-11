@@ -703,15 +703,15 @@ class LogView(View):
             return
         if user.id in self.added:
             return await interaction.response.send_message(
-                _("Request granted! The transcender is waiting in:\n" "{}").format(self.channel.mention), #changed
+                _("You've already agreed to help in:\n" "{}").format(self.channel.mention), #changed #statement if mod is already helping (?)
                 ephemeral=True,
-                delete_after=30,
+                delete_after=20,
             )
         if self.max_claims and len(self.added) >= self.max_claims:
             return await interaction.response.send_message(
                 _("Someone is already assisting this Transcender!"),
                 ephemeral=True,
-                delete_after=30,
+                delete_after=20,
             )
         perms = [
             self.channel.permissions_for(user).view_channel,
@@ -720,17 +720,17 @@ class LogView(View):
         if isinstance(self.channel, discord.TextChannel):
             if all(perms):
                 return await interaction.response.send_message(
-                    _("You've already accepted the request in:\n" "{}").format(self.channel.mention), #change
+                    _("Authorizing your accepted request here:\n" "{}").format(self.channel.mention), #change #
                     ephemeral=True,
-                    delete_after=30,
+                    delete_after=20,
                 )
             await self.channel.set_permissions(user, read_messages=True, send_messages=True)
-            await self.channel.send(_("{} was added to the ticket").format(str(user)))
+            #await self.channel.send(_("{} was added to the ticket").format(str(user))) #changed
         else:
             await self.channel.add_user(user)
         self.added.add(user.id)
         await interaction.response.send_message(
-            _("You've already accepted the request in:\n" "{}").format(self.channel.mention), #change
+            _("Authorizing your accepted request here:\n" "{}").format(self.channel.mention), #change
             ephemeral=True,
-            delete_after=30,
+            delete_after=20,
         )
