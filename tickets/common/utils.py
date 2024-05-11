@@ -115,10 +115,10 @@ async def close_ticket(
         #"<t:{}:F>\n" # time string
         #"```Completed:```\n"
         #"<t:{}:F>\n" #time string
-        "``Handled:``\n"    
+        "``Close By:``\n"    
         "{}\n"
-        "``REASON:``\n" 
-        "{channel.mention}\n"
+        #"``REASON:``\n" 
+        #"{}\n"
        
     ).format(
         member.display_name,
@@ -133,7 +133,7 @@ async def close_ticket(
         desc += _("`Thread:    `{}\n").format(channel.mention)
 
     backup_text = _("Request Closed\n{}\nCurrently missing permissions to send embeds to this channel!").format(desc)
-    embed_title = _("**Request Completed:**") #Dylberts changed the text of closing ticket embed
+    embed_title = _("**Request Completed!**") #Dylberts changed the text of closing ticket embed
     embed = discord.Embed(
         title=embed_title,
         description=desc,
