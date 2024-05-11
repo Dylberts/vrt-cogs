@@ -622,7 +622,7 @@ class SupportButton(Button):
                 #"**[Click to Jump!]({jumpurl})**" #Dylberts^ change all of these texts for the embed mods see when picking up a ticket
             ).format(**kwargs)
             em = discord.Embed(
-                title=_("**Transcender Requesting Help**"), #Dylberts: changed the "Ticket Opened" phrase mods see when tickets open
+                title=_("**Adventurer's Guild Request**"), #Dylberts: changed the "Ticket Opened" phrase mods see when tickets open
                 description=desc,
                 color=discord.Color(0x6edfba), #Dylberts: changed color of embed msg mods receive when a ticket is opened
             )
@@ -703,7 +703,7 @@ class LogView(View):
             return
         if user.id in self.added:
             return await interaction.response.send_message(
-                _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #changed
+                _("Request granted! The transcender is waiting in:\n" "{}").format(self.channel.mention), #changed
                 ephemeral=True,
                 delete_after=30,
             )
@@ -720,7 +720,7 @@ class LogView(View):
         if isinstance(self.channel, discord.TextChannel):
             if all(perms):
                 return await interaction.response.send_message(
-                    _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #change
+                    _("You've already accepted the request in:\n" "{}").format(self.channel.mention), #change
                     ephemeral=True,
                     delete_after=30,
                 )
@@ -730,7 +730,7 @@ class LogView(View):
             await self.channel.add_user(user)
         self.added.add(user.id)
         await interaction.response.send_message(
-            _("You've already accepted a request in:\n" "{}").format(self.channel.mention), #change
+            _("You've already accepted the request in:\n" "{}").format(self.channel.mention), #change
             ephemeral=True,
             delete_after=30,
         )
