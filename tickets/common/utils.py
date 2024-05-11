@@ -115,10 +115,10 @@ async def close_ticket(
         #"<t:{}:F>\n" # time string
         #"```Completed:```\n"
         #"<t:{}:F>\n" #time string
-        "``Request:``\n"    
+        "``Handled:``\n"    
         "{}\n"
-        "``Handled By:``\n" 
-        "{}\n"
+        "``REASON:``\n" 
+        "{channel.mention}\n"
        
     ).format(
         member.display_name,
