@@ -116,14 +116,15 @@ async def close_ticket(
         #"```Completed:```\n"
         #"<t:{}:F>\n" #time string
         "``Closed By:``\n"    
-        #"{user.name}\n" #changed
-        #"``REASON:``\n" 
-        #"{}\n"
+        "{closer_name}\n" #changed
+        "``Requested:``\n" #changed
+        "{channel.mention}\n" #changed
        
     ).format(
         member.display_name,
         member.id,
         panel_name,
+        channel.mention, # Changed
         opened,
         closed,
         closer_name,
