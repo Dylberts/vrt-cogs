@@ -301,7 +301,7 @@ class SupportButton(Button):
             em = discord.Embed(
                 description=_("You've already started an existing request!").format(f"\n{channels}"), # {} would = the thread channel
                 color=discord.Color.red(),
-                #delete_after=20, #recent change dddd
+                delete_after=20, #recent change dddd
             )
             return await interaction.response.send_message(embed=em, ephemeral=True)
 
@@ -589,10 +589,10 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        #desc = _("Redirecting you now...\n" "{}").format(channel_or_thread.mention) #changeddd original <--
-        desc = await interaction.followup.send("Redirecting you now...\n" "{}".format(channel_or_thread.mention), ephemeral=True)
-        await asyncio.sleep(20)
-        await message_to_delete.delete() #end of edit <---
+        desc = _("Redirecting you now...\n" "{}").format(channel_or_thread.mention) #changeddd original <--
+        #desc = await interaction.followup.send("Redirecting you now...\n" "{}".format(channel_or_thread.mention), ephemeral=True) # <--- new edit
+        #await asyncio.sleep(20) #
+        #await message_to_delete.delete() #end of edit <---
         em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
         
         with contextlib.suppress(discord.HTTPException):
