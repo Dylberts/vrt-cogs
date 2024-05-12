@@ -589,13 +589,18 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        desc = _("Initiating request, redirecting now...\n" "{}").format(channel_or_thread.mention) #changed
-        em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
+        desc = _("Redirecting you now...\n" "{}").format(channel_or_thread.mention) #changed
+        em = discord.Embed(description=desc, color=discord.Color(0x6edfba)) #below here is new
+        message_to_delete = await
+        interaction.followup.send("Redirecting you now...\n" "{}", ephemeral=True)
+        await asynico.sleep(20)
+        await message_to_delete.delete()
+        
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
                 asyncio.create_task(existing_msg.edit(content=None, embed=em))
             else:
-                asyncio.create_task(interaction.followup.send(embed=em, ephemeral=True, delete_after=20)) #changedd
+                asyncio.create_task(interaction.followup.send(embed=em, ephemeral=True)) #changed
 
         if (
             logchannel
