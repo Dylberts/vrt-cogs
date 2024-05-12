@@ -590,11 +590,10 @@ class SupportButton(Button):
                 asyncio.create_task(channel_or_thread.send(txt))
 
         #desc = _("Redirecting you now...\n" "{}").format(channel_or_thread.mention) #changeddd
-        message_to_delete = await
-        interaction.followup.send("Redirecting you now...\n" "{}").format(channel_or_thread.mention, ephemeral=True)
+        txt = interaction.followup.send("Redirecting you now...\n" "{}").format(channel_or_thread.mention, ephemeral=True)
             await asyncio.sleep(20)
             await message_to_delete.delete() #end of edit
-        em = discord.Embed(description=desc, color=discord.Color(0x6edfba))
+        em = discord.Embed(description=txt, color=discord.Color(0x6edfba)) #desc -> txt (changed)
         
         with contextlib.suppress(discord.HTTPException):
             if existing_msg:
