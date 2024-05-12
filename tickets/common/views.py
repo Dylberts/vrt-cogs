@@ -374,7 +374,7 @@ class SupportButton(Button):
                         inline=False,
                     )
 
-        #open_txt = _("Processing request, one moment...")
+        open_txt = _("Processing request, one moment...")
         if modal:
             existing_msg = await interaction.followup.send(open_txt, ephemeral=True)
         else:
@@ -589,7 +589,7 @@ class SupportButton(Button):
                 txt = _("I tried to pin the response message but don't have the manage messages permissions!")
                 asyncio.create_task(channel_or_thread.send(txt))
 
-        desc = _("Your request is being processed below:\n" "{}").format(channel_or_thread.mention) #changeddd original <--
+        desc = _("Your request has been processed here:\n" "{}").format(channel_or_thread.mention) #changeddd original <--
         #desc = await interaction.followup.send("Redirecting you now...\n" "{}".format(channel_or_thread.mention), ephemeral=True) # <--- new edit
         #await asyncio.sleep(20) #
         #await message_to_delete.delete() #end of edit <---
