@@ -301,7 +301,7 @@ class SupportButton(Button):
             em = discord.Embed(
                 description=_("You've already started an existing request!").format(f"\n{channels}"), # {} would = the thread channel
                 color=discord.Color.red(),
-                delete_after=20, #recent change
+                #delete_after=20, #recent change dddd
             )
             return await interaction.response.send_message(embed=em, ephemeral=True)
 
